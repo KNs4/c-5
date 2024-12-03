@@ -119,26 +119,46 @@ public:
         input.close();
         output.close();
     }
+
+    // Записать ответ в файл
+    static void WriteToFile(const string& outputFile, const string& message) {
+        ofstream output(outputFile, ios::app);  // открытие для добавления в конец файла
+        output << message << endl;
+        output.close();
+    }
+
+    // Выводить сообщение в консоль и записывать в файл
+    static void OutputAndSave(const string& outputFile, const string& message) {
+        cout << message << endl;
+        WriteToFile(outputFile, message);
+    }
 };
 
 int main() {
+    string outputFile = "results.txt";  // Файл для записи всех результатов
+
     // Задание 1: Генерация и удаление дубликатов
     FileTasks::FillBinaryFile("binary1.dat", 10, 1, 100);
     FileTasks::RemoveDuplicates("binary1.dat", "unique_binary.dat");
+    FileTasks::OutputAndSave(outputFile, "Задание 1 (Бинарный файл): Дубликаты удалены в файле 'unique_binary.dat'.");
 
     FileTasks::FillTextFileSingle("numbers.txt", 20, 1, 100);
     FileTasks::RemoveDuplicatesText("numbers.txt", "unique_text.txt");
+    FileTasks::OutputAndSave(outputFile, "Задание 1 (Текстовый файл): Дубликаты удалены в файле 'unique_text.txt'.");
 
     // Задание 4: Генерация и проверка числа
     FileTasks::FillTextFileSingle("numbers_check.txt", 20, 1, 100);
-    cout << (FileTasks::ContainsNumber("numbers_check.txt", 50) ? "true" : "false") << endl;
+    bool contains50 = FileTasks::ContainsNumber("numbers_check.txt", 50);
+    FileTasks::OutputAndSave(outputFile, "Задание 4: Число 50 " + string(contains50 ? "найдено" : "не найдено") + " в файле 'numbers_check.txt'.");
 
     // Задание 5: Генерация и вычисление суммы
     FileTasks::FillTextFileMultiple("numbers_multi.txt", 5, 4, 1, 100);
-    cout << FileTasks::SumMultiples("numbers_multi.txt", 5) << endl;
+    int sumMultiples = FileTasks::SumMultiples("numbers_multi.txt", 5);
+    FileTasks::OutputAndSave(outputFile, "Задание 5: Сумма чисел, кратных 5 в файле 'numbers_multi.txt' = " + to_string(sumMultiples) + ".");
 
     // Задание 6: Генерация и копирование строк без цифр
     FileTasks::CopyLinesWithoutDigits("text.txt", "no_digits.txt");
+    FileTasks::OutputAndSave(outputFile, "Задание 6: Строки без цифр скопированы в файл 'no_digits.txt'.");
 
     return 0;
 }
