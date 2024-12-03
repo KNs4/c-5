@@ -146,15 +146,25 @@ int main() {
     FileTasks::RemoveDuplicatesText("numbers.txt", "unique_text.txt");
     FileTasks::OutputAndSave(outputFile, "Задание 1 (Текстовый файл): Дубликаты удалены в файле 'unique_text.txt'.");
 
-    // Задание 4: Генерация и проверка числа
-    FileTasks::FillTextFileSingle("numbers_check.txt", 20, 1, 100);
-    bool contains50 = FileTasks::ContainsNumber("numbers_check.txt", 50);
-    FileTasks::OutputAndSave(outputFile, "Задание 4: Число 50 " + string(contains50 ? "найдено" : "не найдено") + " в файле 'numbers_check.txt'.");
+    // Задание 4: Ввод числа для поиска
+    cout << "Введите число для поиска в файле (Задание 4): ";
+    int numberToFind;
+    cin >> numberToFind;
 
-    // Задание 5: Генерация и вычисление суммы
+    FileTasks::FillTextFileSingle("numbers_check.txt", 20, 1, 100);
+    bool contains = FileTasks::ContainsNumber("numbers_check.txt", numberToFind);
+    FileTasks::OutputAndSave(outputFile, "Задание 4: Число " + to_string(numberToFind) + " " + 
+        (contains ? "найдено" : "не найдено") + " в файле 'numbers_check.txt'.");
+
+    // Задание 5: Ввод числа для кратности
+    cout << "Введите число, для которого нужно найти сумму кратных чисел (Задание 5): ";
+    int multipleCheck;
+    cin >> multipleCheck;
+
     FileTasks::FillTextFileMultiple("numbers_multi.txt", 5, 4, 1, 100);
-    int sumMultiples = FileTasks::SumMultiples("numbers_multi.txt", 5);
-    FileTasks::OutputAndSave(outputFile, "Задание 5: Сумма чисел, кратных 5 в файле 'numbers_multi.txt' = " + to_string(sumMultiples) + ".");
+    int sumMultiples = FileTasks::SumMultiples("numbers_multi.txt", multipleCheck);
+    FileTasks::OutputAndSave(outputFile, "Задание 5: Сумма чисел, кратных " + to_string(multipleCheck) + 
+        " в файле 'numbers_multi.txt' = " + to_string(sumMultiples) + ".");
 
     // Задание 6: Генерация и копирование строк без цифр
     FileTasks::CopyLinesWithoutDigits("text.txt", "no_digits.txt");
@@ -162,3 +172,4 @@ int main() {
 
     return 0;
 }
+
